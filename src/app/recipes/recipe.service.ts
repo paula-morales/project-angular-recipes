@@ -1,7 +1,10 @@
 import { Recipe } from "./recipe.model";
+import { EventEmitter } from "@angular/core";
 
 //it will manage our recipes
 export class RecipeService {
+  recipeSelected = new EventEmitter<Recipe>();
+
   //you cannot get access from outside (private)
   private recipes: Recipe[] = [
     new Recipe(
