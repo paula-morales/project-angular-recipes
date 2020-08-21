@@ -9,8 +9,11 @@
     <app-recipe-item
       *ngFor="let recipeEl of recipes"
       [recipe]="recipeEl"
+      (recipeSelected)="onRecipeSelected(recipeEl)"
     ></app-recipe-item>
     <!-- [recipe] is the element we defined in recipe-item.component.ts
-    we send it to the child    -->
+    we send it to the child  
+   (recipeSelected) it is an event to listen which recipe was selected
+    -->
   </div>
 </div>
