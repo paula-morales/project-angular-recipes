@@ -4,13 +4,7 @@
     <app-recipe-list></app-recipe-list>
   </div>
   <div class="col-md-7">
-    <!-- if statement *ngIf -->
-    <app-recipe-details
-      *ngIf="selectedRecipe; else infoText"
-      [recipe]="selectedRecipe"
-    ></app-recipe-details>
-    <ng-template #infoText>
-      Please select a Recipe
-    </ng-template>
+    <!-- the children is recipe-start, to display it we use router-outlet in the parent component -->
+    <router-outlet></router-outlet>
   </div>
 </div>
