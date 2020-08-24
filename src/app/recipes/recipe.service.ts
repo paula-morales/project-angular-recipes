@@ -10,23 +10,29 @@ import { Subject } from "rxjs";
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
   //you cannot get access from outside (private)
-  private recipes: Recipe[] = [
-    new Recipe(
-      "Recipe 1",
-      "This is the first recipe",
-      "https://cdn.pixabay.com/photo/2015/04/29/19/33/cookbook-746005_960_720.jpg",
-      [new Ingredient("tomatoes", 5), new Ingredient("pasta", 1)]
-    ),
-    new Recipe(
-      "Recipe 2",
-      "This is the first recipe",
-      "https://cdn.pixabay.com/photo/2015/04/29/19/33/cookbook-746005_960_720.jpg",
-      [new Ingredient("tomatoes", 5), new Ingredient("pasta", 1)]
-    ),
-  ];
+  // private recipes: Recipe[] = [
+  //   new Recipe(
+  //     "Recipe 1",
+  //     "This is the first recipe",
+  //     "https://cdn.pixabay.com/photo/2015/04/29/19/33/cookbook-746005_960_720.jpg",
+  //     [new Ingredient("tomatoes", 5), new Ingredient("pasta", 1)]
+  //   ),
+  //   new Recipe(
+  //     "Recipe 2",
+  //     "This is the first recipe",
+  //     "https://cdn.pixabay.com/photo/2015/04/29/19/33/cookbook-746005_960_720.jpg",
+  //     [new Ingredient("tomatoes", 5), new Ingredient("pasta", 1)]
+  //   ),
+  // ];
+
+  private recipes: Recipe[] = [];
+
   //inject shopping list service into the recipe service
   constructor(private shopListService: ShoppingListService) {}
-
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
   getRecipes() {
     //we get a copy of the array
     return this.recipes.slice();
