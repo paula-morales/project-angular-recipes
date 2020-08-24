@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Recipe } from "../recipes/recipe.model";
 import { RecipeService } from "../recipes/recipe.service";
-import { map } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 
 @Injectable({ providedIn: "root" })
 export class DataStorageService {
@@ -23,7 +23,9 @@ export class DataStorageService {
   fetchRecipes() {
     //response Recipe[]
     //map is a rxjs operator
-    this.http
+    //The tap operator allows us to execute some code here in place
+    //without altering the data that is funneled through that observable
+    return this.http
       .get<Recipe[]>("https://new-project-f7eee.firebaseio.com/recipes.json")
       .pipe(
         map((recipes) => {
@@ -33,10 +35,10 @@ export class DataStorageService {
               ingredients: recipe.ingredients ? recipe.ingredients : [],
             };
           });
+        }),
+        tap((recipes) => {
+          this.recipeServices.setRecipes(recipes);
         })
-      )
-      .subscribe((recipes) => {
-        this.recipeServices.setRecipes(recipes);
-      });
+      );
   }
 }
