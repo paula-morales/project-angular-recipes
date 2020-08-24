@@ -18,4 +18,13 @@ export class DataStorageService {
         console.log(response);
       });
   }
+
+  fetchRecipes() {
+    //response Recipe[]
+    this.http
+      .get<Recipe[]>("https://new-project-f7eee.firebaseio.com/recipes.json")
+      .subscribe((recipes) => {
+        this.recipeServices.setRecipes(recipes);
+      });
+  }
 }

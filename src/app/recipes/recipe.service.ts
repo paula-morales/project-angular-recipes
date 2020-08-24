@@ -26,7 +26,10 @@ export class RecipeService {
   ];
   //inject shopping list service into the recipe service
   constructor(private shopListService: ShoppingListService) {}
-
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
   getRecipes() {
     //we get a copy of the array
     return this.recipes.slice();
